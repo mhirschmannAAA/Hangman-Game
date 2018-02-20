@@ -4,6 +4,7 @@ window.onload = function() {
   var guesses = [];
   var lives;
   var counter;
+  var gameState  = "start";
 
   // Get elements
   var showLives = document.getElementById("mylives");
@@ -31,6 +32,42 @@ window.onload = function() {
     }
   }
 
+    // Show lives
+    comments = function () {
+      showLives.innerHTML = "You have " + lives + " lives";
+      if (lives < 1) {
+        showLives.innerHTML = "Game Over";
+      }
+      for (var i = 0; i < geusses.length; i++) {
+        if (counter + space === geusses.length) {
+          showLives.innerHTML = "You Win!";
+        }
+      }
+    }
+
+    // OnClick Function
+   check = function () {
+     list.onclick = function () {
+      var geuss = (this.innerHTML);
+      this.setAttribute("class", "active");
+      this.onkeyup = null;
+      for (var i = 0; i < word.length; i++) {
+        if (word[i] === geuss) {
+          geusses[i].innerHTML = geuss;
+          counter += 1;
+        } 
+      }
+      var j = (word.indexOf(geuss));
+      if (j === -1) {
+        lives -= 1;
+        comments();
+        animate();
+      } else {
+        comments();
+      }
+    }
+  }
+
   play = function() {
     words = ["cannondale","trek","giant","litespeed"]
     word = chosenWord[Math.floor(Math.random() * chosenWord.length)];
@@ -53,4 +90,10 @@ window.onload = function() {
     context.clearRect(0, 0, 400, 400);
     play();
   }
+}
+
+document.onkeyup = function(event) {
+  if (userInput === "k")
+    play();
+  console.log(gameState)
 }
