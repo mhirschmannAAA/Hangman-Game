@@ -25,3 +25,7 @@ button{
   margin: 10px;
   outline: none;
 }
+
+ul#my-word li {
+  display:inline;
+}
